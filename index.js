@@ -24,7 +24,11 @@ app.delete('/messages/:id', del);
 
 // Front End
 
-app.use(express.static('public'))
+app.use('/:id', (req, res) => {
+    // Serve specific file, message.html, inside of 'public' folder, instead of index.html
+});
+
+app.use(express.static('public'));
 
 app.listen(443, function () {
     console.log('✅ 🥬Kale is now live on port 443!');

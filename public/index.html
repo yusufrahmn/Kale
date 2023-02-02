@@ -17,11 +17,15 @@
                 <h1>🥬Kale</h1>
                 <h5>Send password-protected messages to anyone, anywhere.</h5>
             </hgroup>
-            <form onsubmit="post(); return false">
+            <form id="form" onsubmit="post(); return false">
                 <textarea required id="content" name="content" placeholder="Write your message"  rows="3"></textarea>
                 <input required type="password" id="password" name="password" placeholder="Set a password" max="128"></label></input>
                 <button id="send">Send</button>
             </form>
+            <div id="linkarea" class="grid" style="display:none;">
+                <input id="link" type="text" placeholder="https://kale.gq/example"></input>
+                <p id="copyButton" role="button" onclick="copy()">Copy Link</p>
+            </div>
         </article>
     </main>
 
