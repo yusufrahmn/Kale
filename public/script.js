@@ -19,7 +19,7 @@ function post() {
             document.getElementById('linkarea').style = "";
 
             let response =  JSON.parse(xhr.response);
-            document.getElementById('link').value = `https://kale.gq/${response._id}`;
+            document.getElementById('link').value = window.location.href + response._id;
         }
     }
 
