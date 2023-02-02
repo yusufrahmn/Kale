@@ -1,0 +1,24 @@
+{
+  "name": "kale",
+  "version": "1.0.0",
+  "description": "Send password-protected messages to anyone, anywhere.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusufrahmn/Kale.git"
+  },
+  "author": "@yusufrahmn",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/yusufrahmn/Kale/issues"
+  },
+  "homepage": "https://github.com/yusufrahmn/Kale#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.0.0"
+  }
+}

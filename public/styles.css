@@ -1,0 +1,13 @@
+* {
+    --primary: #43a047;
+    --primary-hover: #388e3c;
+    --primary-focus: rgba(67, 160, 71, 0.125);
+    --primary-inverse: #FFF;
+}
+  
+article {
+    max-width: 600px; 
+    margin: auto;
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
