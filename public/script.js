@@ -9,7 +9,8 @@ function loading(buttonID, text) {
 function error(button, text='An error has occured.') {
     button.ariaBusy = false;
     button.innerHTML = text;
-    buttin.id = redButton;
+    button.classList.add("redButton");
+    button.disabled = false;
 }
 
 // New Message Button
@@ -69,12 +70,11 @@ function get() {
     xhr.setRequestHeader('Authorization', `Bearer ${password}`);
 
     xhr.onload = async () => {
+        let response =  JSON.parse(xhr.response);
         if (xhr.status === 200) {
             document.getElementById('passwordarea').style = "display: none;"
-            document.getElementById('redButton').style = "";
+            document.getElementById('burnButton').style = "";
 
-            let response =  JSON.parse(xhr.response);
-            console.log(response);
             document.getElementById('content').innerHTML = response.content;
         } else if (xhr.status = 400) {
             error(button, response.error)
@@ -93,7 +93,7 @@ function get() {
 function del() {
     let id = window.location.href.split('/')[3];
     let password = document.getElementById('password').value;
-    let button = loading('redButton',  'Burning...')
+    let button = loading('burnButton',  'Burning...')
     if (!password) return error(button, "Unauthorized")
 
     const xhr = new XMLHttpRequest();
@@ -102,9 +102,10 @@ function del() {
     xhr.setRequestHeader('Authorization', `Bearer ${password}`);
 
     xhr.onload = async () => {
+        let response =  JSON.parse(xhr.response);
         if (xhr.status === 200) {
             document.getElementById('content').style = "display: none;"
-            document.getElementById('redButton').style = "display: none;"
+            document.getElementById('burnButton').style = "display: none;"
 
             // let response =  JSON.parse(xhr.response);
             // console.log(response);

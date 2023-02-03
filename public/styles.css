@@ -17,8 +17,8 @@ article {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 
-#redButton {
-    --primary: #e53935;
-    --primary-hover: #d32f2f;
-    --primary-focus: rgba(229, 57, 53, 0.125);
+#burnButton, .redButton {
+    --primary: #e53935 !important;
+    --primary-hover: #d32f2f !important;
+    --primary-focus: rgba(229, 57, 53, 0.125) !important;
 }

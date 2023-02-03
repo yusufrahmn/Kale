@@ -14,9 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Back End
 
-const post = require('./methods/post');
-const get = require('./methods/get');
-const del = require('./methods/del');
+const { post, get, del } = require('./methods');
 
 app.post('/messages', post);
 app.get('/messages/:id', get);
