@@ -14,6 +14,14 @@
     <main class="container">
         <article>
             <h1>🥬Kale</h1>
+            <p id="content">Enter password to view message: <span>log in to view message. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</span></p>
+
+            <div id="passwordarea" class="grid">
+                <input required id="password" type="password" placeholder="Password"  max="128"></input>
+                <p id="viewButton" role="button" onclick="get()">View</p>
+            </div>
+
+            <button id="redButton" style="display:none;" onclick="del()">Burn</button>
         </article>
     </main>
 
