@@ -1,22 +1,28 @@
+function loading(buttonID, text) {
+    let button = document.getElementById(buttonID);
+    button.disabled = true;
+    button.ariaBusy = true;
+    button.innerHTML = text;
+    return button;
+}
+
+function error(button, text='An error has occured.') {
+    button.ariaBusy = false;
+    button.innerHTML = text;
+    buttin.id = redButton;
+}
+
+// New Message Button
+
 function post() {
     let content = document.getElementById('content').value;
     let password = document.getElementById('password').value;
-
-    let sendButton = document.getElementById('send');
-    sendButton.disabled = true;
-    sendButton.ariaBusy = true;
-    sendButton.innerHTML = 'Sending...';
+    let button = loading('sendButton', 'Sending...');
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", '/messages', true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    function error(text) {
-        sendButton.ariaBusy = false;
-        sendButton.innerHTML = text;
-        sendButton.id = 'redButton';
-    }
 
     xhr.onload = async () => {
         let response =  JSON.parse(xhr.response);
@@ -26,18 +32,18 @@ function post() {
 
             document.getElementById('link').value = window.location.href + response._id;
         } else if (xhr.status = 400) {
-            error(response.error)
+            error(button, response.error)
         } else { 
-            error('An error has occured.'); 
+            error(button); 
         }
     }
 
-    xhr.onerror = async () => {
-        error('An error has occured.');
-    }
+    xhr.onerror = async () => { error(button); }
 
     xhr.send(JSON.stringify({ content }));
 }
+
+// Copy Link Button
 
 function copy() {
     let link = document.getElementById('link');
@@ -49,25 +55,18 @@ function copy() {
     copyButton.innerHTML = 'Copied!';
 }
 
+// View Message Button
+
 function get() {
     let id = window.location.href.split('/')[3];
     let password = document.getElementById('password').value;
-
-    let viewButton = document.getElementById('viewButton');
-    viewButton.disabled = true;
-    viewButton.ariaBusy = true;
-    viewButton.innerHTML = 'Authenticating...';
+    let button = loading('viewButton', 'Authenticating...')
+    if (!password) return error(button, "Please enter the password.")
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/messages/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    function error(text) {
-        viewButton.ariaBusy = false;
-        viewButton.innerHTML = text;
-        viewButton.id = 'redButton';
-    }
 
     xhr.onload = async () => {
         if (xhr.status === 200) {
@@ -78,37 +77,29 @@ function get() {
             console.log(response);
             document.getElementById('content').innerHTML = response.content;
         } else if (xhr.status = 400) {
-            error(response.error)
+            error(button, response.error)
         } else { 
-            error('An error has occured.'); 
+            error(button); 
         }
     }
 
-    xhr.onerror = async () => {
-        error('An error has occured.');
-    }
+    xhr.onerror = async () => { error(button); }
 
     xhr.send();
 }
 
+// Delete Message Button
+
 function del() {
     let id = window.location.href.split('/')[3];
     let password = document.getElementById('password').value;
-
-    let viewButton = document.getElementById('redButton');
-    redButton.disabled = true;
-    redButton.ariaBusy = true;
-    redButton.innerHTML = 'Burning...';
+    let button = loading('redButton',  'Burning...')
+    if (!password) return error(button, "Unauthorized")
 
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", `/messages/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    function error(text) {
-        redButton.ariaBusy = false;
-        redButton.innerHTML = text;
-    }
 
     xhr.onload = async () => {
         if (xhr.status === 200) {
@@ -119,15 +110,13 @@ function del() {
             // console.log(response);
             // document.getElementById('content').innerHTML = response.content;
         } else if (xhr.status = 400) {
-            error(response.error)
+            error(button, response.error)
         } else { 
-            error('An error has occured.'); 
+            error(button); 
         }
     }
 
-    xhr.onerror = async () => {
-        error('An error has occured.');
-    }
+    xhr.onerror = async () => { error(button); }
 
     xhr.send();
 }

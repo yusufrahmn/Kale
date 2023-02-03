@@ -13,5 +13,5 @@ module.exports = async function(req, res) {
     if (!correctPassword) return res.status(400).json({ error: "Unauthorized" });
 
     await db.deleteOne({ _id: new ObjectId(req.params.id) });
-    res.status(200).json('Deleted!');
+    res.status(200).send('Deleted!');
 }
