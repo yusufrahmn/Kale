@@ -17,7 +17,7 @@ function error(button, text='Error') {
     button.disabled = false;
 }
 
-// Fade In/Out (by @Raptor007 from https://stackoverflow.com/a/20533102)
+// Fade Out (by @Raptor007 from https://stackoverflow.com/a/20533102)
 
 function fadeOut(elem, ms) {
   if(!elem) return;
@@ -58,10 +58,9 @@ function post() {
     xhr.onload = async () => {
         let response =  JSON.parse(xhr.response);
         if (xhr.status === 200) {
+            document.getElementById('link').value = window.location.href + response._id;
             document.getElementById('form').style = "display: none;"
             document.getElementById('linkarea').style = "";
-
-            document.getElementById('link').value = window.location.href + response._id;
         } else if (xhr.status = 400) {
             error(button, response.error)
         } else { 
@@ -85,6 +84,14 @@ function copy() {
     let copyButton = document.getElementById('copyButton');
     copyButton.innerHTML = 'Copied!';
 }
+
+// Password Field
+
+document.getElementById('password').addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        document.getElementById('viewButton').click();
+    }
+});
 
 // View Message Button
 
