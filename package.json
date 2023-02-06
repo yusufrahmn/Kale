@@ -4,6 +4,7 @@
   "description": "Send password-protected messages to anyone, anywhere.",
   "main": "index.js",
   "scripts": {
+    "run": "node .",
     "test": "nodemon ."
   },
   "repository": {
