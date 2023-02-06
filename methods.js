@@ -6,17 +6,17 @@ const bcrypt = require('bcrypt');
 
 const auth = async function(req, res) {
     let password = req.headers.authorization.split(' ').slice(1).join(' ');
-    if (!password) return res.status(400).json({ error: "Please enter password." });
-    if (!ObjectId.isValid(req.params.id)) return res.status(400).json({ error: "Invalid link." });
+    if (!password) return res.status(400).json({ error: "Enter Password" });
+    if (!ObjectId.isValid(req.params.id)) return res.status(400).json({ error: "Invalid Link" });
 
     let message = await db.findOne({ _id: new ObjectId(req.params.id) });
-    if (!message) return res.status(400).json({ error: "Message not found." });
+    if (!message) return res.status(400).json({ error: "Invalid Link" });
 
     let { hashedPassword, content } = message;
-    if (!hashedPassword || !content) return res.status(400).json({ error: "Message not found." });
+    if (!hashedPassword || !content) return res.status(400).json({ error: "Invalid Link" });
 
     let correctPassword = await bcrypt.compare(password, hashedPassword);
-    if (!correctPassword) return res.status(400).json({ error: "Incorrect password." });
+    if (!correctPassword) return res.status(400).json({ error: "Incorrect Password" });
 
     return ['Authorized', content];
 }
@@ -28,7 +28,7 @@ const post = async function(req, res) {
     let { content } = req.body;
     let password = req.headers.authorization.split(' ').slice(1).join(' ');
 
-    if (!content || !password) return res.status(400).json({ error: "Please enter both content and password." });
+    if (!content || !password) return res.status(400).json({ error: "Enter both content and password." });
 
     let salt = await bcrypt.genSalt(14);
     let hashedPassword = await bcrypt.hash(password, salt);

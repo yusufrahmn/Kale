@@ -6,7 +6,7 @@ function loading(buttonID, text) {
     return button;
 }
 
-function error(button, text='An error has occured.') {
+function error(button, text='Error') {
     button.ariaBusy = false;
     button.innerHTML = text;
     button.classList.add("redButton");
@@ -62,7 +62,7 @@ function get() {
     let id = window.location.href.split('/')[3];
     let password = document.getElementById('password').value;
     let button = loading('viewButton', 'Authenticating...')
-    if (!password) return error(button, "Please enter the password.")
+    if (!password) return error(button, "Enter Password")
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/messages/${id}`, true);
