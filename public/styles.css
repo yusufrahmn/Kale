@@ -12,15 +12,17 @@ article {
     padding-bottom: 35px;
 }
 
+.footer {
+    text-align: center;
+    margin-bottom: 0px;
+    opacity: 35%;
+}
+
 #content {
     -webkit-transition: color 3s ease-out;
     -moz-transition: color 3s ease-out;
     -o-transition: color 3s ease-out;
     transition: color 3s ease-out;
-}
-
-.burning {
-    color: red;
 }
 
 #content > span {
@@ -32,4 +34,8 @@ article {
     --primary: #e53935 !important;
     --primary-hover: #d32f2f !important;
     --primary-focus: rgba(229, 57, 53, 0.125) !important;
+}
+
+.burning {
+    color: red;
 }
