@@ -1,3 +1,5 @@
+// Loading Button
+
 function loading(buttonID, text) {
     let button = document.getElementById(buttonID);
     button.disabled = true;
@@ -6,11 +8,39 @@ function loading(buttonID, text) {
     return button;
 }
 
+// Error Button
+
 function error(button, text='Error') {
     button.ariaBusy = false;
     button.innerHTML = text;
     button.classList.add("redButton");
     button.disabled = false;
+}
+
+// Fade In/Out (by @Raptor007 from https://stackoverflow.com/a/20533102)
+
+function fadeOut(elem, ms) {
+  if(!elem) return;
+
+  if(ms)  {
+    var opacity = 1;
+    var timer = setInterval(() => {
+      opacity -= 50 / ms;
+      if(opacity <= 0) {
+        clearInterval(timer);
+        opacity = 0;
+        elem.style.display = "none";
+        elem.style.visibility = "hidden";
+      }
+      elem.style.opacity = opacity;
+      elem.style.filter = "alpha(opacity=" + opacity * 100 + ")";
+    }, 50);
+  } else {
+    elem.style.opacity = 0;
+    elem.style.filter = "alpha(opacity=0)";
+    elem.style.display = "none";
+    elem.style.visibility = "hidden";
+  }
 }
 
 // New Message Button
@@ -103,13 +133,12 @@ function del() {
 
     xhr.onload = async () => {
         let response =  JSON.parse(xhr.response);
+        let homepage = window.location.href.split('/').slice(0,3).join('/');
         if (xhr.status === 200) {
-            document.getElementById('content').style = "display: none;"
-            document.getElementById('burnButton').style = "display: none;"
-
-            // let response =  JSON.parse(xhr.response);
-            // console.log(response);
-            // document.getElementById('content').innerHTML = response.content;
+            fadeOut(document.getElementById('burnButton'), 500)
+            document.getElementById('content').classList.add('burning');
+            fadeOut(document.getElementById('content'), 4000)
+            setTimeout(() => { window.location.href = homepage; }, 5000)
         } else if (xhr.status = 400) {
             error(button, response.error)
         } else { 
