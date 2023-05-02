@@ -1,3 +1,8 @@
+/*
+TO-DO:
+- Migrate post(), get(), and del() from XHR to Fetch
+*/
+
 // Loading Button
 
 function loading(buttonID, text) {

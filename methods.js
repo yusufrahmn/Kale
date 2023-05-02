@@ -1,3 +1,8 @@
+/*
+TO-DO:
+- Implement security features for post()
+*/
+
 const { db } = require('./index');
 const { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
