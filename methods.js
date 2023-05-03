@@ -38,6 +38,14 @@ const post = async function(req, res) {
     let salt = await bcrypt.genSalt(14);
     let hashedPassword = await bcrypt.hash(password, salt);
 
+    content = content
+        .trim()
+        .replace('<', '&lt;')
+        .replace('>', '&gt;')
+        .replace('&', '&gt;')
+        .replace('"', '&quot;')
+        .replace("'", '&apos;')
+        .replace('/', '&sol;');
     let newMessage = await db.insertOne({ content, hashedPassword });
     res.status(200).json({ _id: newMessage.insertedId });
 }
