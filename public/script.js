@@ -1,8 +1,3 @@
-/*
-TO-DO:
-- Migrate post(), get(), and del() from XHR to Fetch
-*/
-
 // Loading Button
 
 function loading(buttonID, text) {
@@ -55,27 +50,28 @@ function post() {
     let password = document.getElementById('password').value;
     let button = loading('sendButton', 'Sending...');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", '/messages', true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    xhr.onload = async () => {
-        let response =  JSON.parse(xhr.response);
-        if (xhr.status === 200) {
-            document.getElementById('link').value = window.location.href + response._id;
-            document.getElementById('form').style = "display: none;"
-            document.getElementById('linkarea').style = "";
-        } else if (xhr.status = 400) {
-            error(button, response.error)
-        } else { 
-            error(button); 
-        }
-    }
-
-    xhr.onerror = async () => { error(button); }
-
-    xhr.send(JSON.stringify({ content }));
+    fetch('/messages', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${password}`
+        },
+        body: JSON.stringify({ content })
+    }).then(res => {
+        res.json().then(data => {
+            if (res.status === 200) {
+                document.getElementById('link').value = window.location.href + data._id;
+                document.getElementById('form').style = "display: none;"
+                document.getElementById('linkarea').style = "";
+            } else if (res.status === 400) {
+                error(button, data.error)
+            } else {
+                error(button);
+            }
+        })
+    }).catch(err => {
+        error(button)
+    });
 }
 
 // Copy Link Button
@@ -93,7 +89,7 @@ function copy() {
 // Password Field
 
 document.getElementById('password').addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && document.getElementById('viewButton')) {
         document.getElementById('viewButton').click();
     }
 });
@@ -106,28 +102,27 @@ function get() {
     let button = loading('viewButton', 'Authenticating...')
     if (!password) return error(button, "Enter Password")
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/messages/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    xhr.onload = async () => {
-        let response =  JSON.parse(xhr.response);
-        if (xhr.status === 200) {
-            document.getElementById('passwordarea').style = "display: none;"
-            document.getElementById('burnButton').style = "";
-
-            document.getElementById('content').innerHTML = response.content;
-        } else if (xhr.status = 400) {
-            error(button, response.error)
-        } else { 
-            error(button); 
+    fetch(`/messages/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${password}`
         }
-    }
-
-    xhr.onerror = async () => { error(button); }
-
-    xhr.send();
+    }).then(res => {
+        res.json().then(data => {
+            if (res.status === 200) {
+                document.getElementById('passwordarea').style = "display: none;"
+                document.getElementById('burnButton').style = "";
+                document.getElementById('content').innerHTML = data.content;
+            } else if (res.status == 400) {
+                error(button, data.error);
+            } else { 
+                error(button); 
+            }
+        })
+    }).catch(err => {
+        error(button);
+    })
 }
 
 // Delete Message Button
@@ -138,27 +133,23 @@ function del() {
     let button = loading('burnButton',  'Burning...')
     if (!password) return error(button, "Unauthorized")
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `/messages/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('Authorization', `Bearer ${password}`);
-
-    xhr.onload = async () => {
-        let response =  JSON.parse(xhr.response);
+    fetch(`/messages/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${password}`
+        }
+    }).then(res => {
         let homepage = window.location.href.split('/').slice(0,3).join('/');
-        if (xhr.status === 200) {
+        if (res.status === 200) {
             fadeOut(document.getElementById('burnButton'), 500)
             document.getElementById('content').classList.add('burning');
             fadeOut(document.getElementById('content'), 4000)
             setTimeout(() => { window.location.href = homepage; }, 5000)
-        } else if (xhr.status = 400) {
+        } else if (res.status = 400) {
             error(button, response.error)
         } else { 
             error(button); 
         }
-    }
-
-    xhr.onerror = async () => { error(button); }
-
-    xhr.send();
+    });
 }
