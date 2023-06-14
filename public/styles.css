@@ -67,3 +67,7 @@ article {
 .burning {
 	color: red;
 }
+
+div[data-lastpass-icon-root] {
+    display: none;
+}
