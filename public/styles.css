@@ -1,41 +1,69 @@
-* {
-    --primary: #43a047;
-    --primary-hover: #388e3c;
-    --primary-focus: rgba(67, 160, 71, 0.125);
-    --primary-inverse: #FFF;
-}
-  
-article {
-    max-width: 600px; 
-    margin: auto;
-    padding-top: 35px;
-    padding-bottom: 35px;
-}
-
-.footer {
-    text-align: center;
-    margin-bottom: 0px;
-    opacity: 35%;
-}
-
-#content {
-    -webkit-transition: color 3s ease-out;
-    -moz-transition: color 3s ease-out;
-    -o-transition: color 3s ease-out;
-    transition: color 3s ease-out;
+/* Green Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+	--primary: #43a047;
+	--primary-hover: #388e3c;
+	--primary-focus: rgba(67, 160, 71, 0.125);
+	--primary-inverse: #fff;
 }
 
 #content > span {
     color: transparent;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
-#burnButton, .redButton {
-    --primary: #e53935 !important;
-    --primary-hover: #d32f2f !important;
-    --primary-focus: rgba(229, 57, 53, 0.125) !important;
+/* Green Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		--primary: #43a047;
+		--primary-hover: #4caf50;
+		--primary-focus: rgba(67, 160, 71, 0.25);
+		--primary-inverse: #fff;
+	}
+
+	#content > span {
+		color: transparent;
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+	}
+}
+
+/* Green (Common styles) */
+:root {
+	--form-element-active-border-color: var(--primary);
+	--form-element-focus-color: var(--primary-focus);
+	--switch-color: var(--primary-inverse);
+	--switch-checked-background-color: var(--primary);
+}
+
+article {
+	max-width: 600px;
+	margin: auto;
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+
+.footer {
+	text-align: center;
+	margin-bottom: 0px;
+	opacity: 35%;
+}
+
+#content {
+	-webkit-transition: color 3s ease-out;
+	-moz-transition: color 3s ease-out;
+	-o-transition: color 3s ease-out;
+	transition: color 3s ease-out;
+}
+
+#burnButton,
+.redButton {
+	--primary: #e53935 !important;
+	--primary-hover: #d32f2f !important;
+	--primary-focus: rgba(229, 57, 53, 0.125) !important;
 }
 
 .burning {
-    color: red;
+	color: red;
 }
