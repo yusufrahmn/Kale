@@ -37,11 +37,17 @@
 	--switch-checked-background-color: var(--primary);
 }
 
+html, body, main { height: 100% }
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 article {
 	max-width: 600px;
-	margin: auto;
-	padding-top: 35px;
-	padding-bottom: 35px;
+	padding: 32px;
 }
 
 .footer {
@@ -55,6 +61,11 @@ article {
 	-moz-transition: color 3s ease-out;
 	-o-transition: color 3s ease-out;
 	transition: color 3s ease-out;
+}
+
+button {
+	width: 100%;
+	margin-bottom: 8px;
 }
 
 #burnButton,

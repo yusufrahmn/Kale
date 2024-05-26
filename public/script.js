@@ -29,8 +29,6 @@ function fadeOut(elem, ms) {
       if(opacity <= 0) {
         clearInterval(timer);
         opacity = 0;
-        elem.style.display = "none";
-        elem.style.visibility = "hidden";
       }
       elem.style.opacity = opacity;
       elem.style.filter = "alpha(opacity=" + opacity * 100 + ")";
@@ -38,8 +36,6 @@ function fadeOut(elem, ms) {
   } else {
     elem.style.opacity = 0;
     elem.style.filter = "alpha(opacity=0)";
-    elem.style.display = "none";
-    elem.style.visibility = "hidden";
   }
 }
 
