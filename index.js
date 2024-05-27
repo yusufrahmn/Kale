@@ -34,6 +34,6 @@ app.get('/:id', (req, res) => {
     res.render('message');
 });
 
-app.listen(443, () => {
+app.listen(3000, () => {
     console.log('✅ 🥬Kale is now live on port 443!');
 });
