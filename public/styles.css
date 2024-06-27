@@ -1,40 +1,13 @@
-/* Green Light scheme (Default) */
-/* Can be forced with data-theme="light" */
-[data-theme="light"],
-:root:not([data-theme="dark"]) {
-	--pico-primary-background: #43a047;
-	--pico-primary-hover-background: #388e3c;
-	--pico-primary-focus: rgba(67, 160, 71, 0.125);
-	--pico-primary-inverse: #fff;
-}
-
 #content > span {
     color: transparent;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Green Dark scheme (Auto) */
-/* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {
-	:root:not([data-theme]) {
-		--pico-primary-background: #43a047;
-		--pico-primary-hover-background: #4caf50;
-		--pico-primary-focus: rgba(67, 160, 71, 0.25);
-		--pico-primary-inverse: #fff;
-	}
-
 	#content > span {
 		color: transparent;
 		text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 	}
-}
-
-/* Green (Common styles) */
-:root {
-	--form-element-active-border-color: var(--pico-primary);
-	--form-element-focus-color: var(--pico-primary-focus);
-	--switch-color: var(--pico-primary-inverse);
-	--switch-checked-background-color: var(--pico-primary);
 }
 
 html, body, main { height: 100% }
@@ -68,12 +41,12 @@ button {
 	margin-bottom: 8px;
 }
 
-#burnButton,
-.redButton {
-	--primary: #e53935 !important;
-	--primary-hover: #d32f2f !important;
-	--primary-focus: rgba(229, 57, 53, 0.125) !important;
+#burnButton {
+	background-color: #e53935 !important;
+	border: none !important;
 }
+#burnButton:hover { background-color: #d32f2f !important; }
+#burnButton:focus { background-color: rgba(229, 57, 53, 0.125) !important; }
 
 .burning {
 	color: red;
